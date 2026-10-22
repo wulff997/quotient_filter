@@ -71,3 +71,10 @@ the queried remainder (without tracking which quotient each remainder belongs
 to), the false-positive rate is the scan-based bound `1 - (1 - 1/R)^N`, not
 the tighter quotient-aware bound a full canonical-run implementation achieves.
 Plan capacity accordingly.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
